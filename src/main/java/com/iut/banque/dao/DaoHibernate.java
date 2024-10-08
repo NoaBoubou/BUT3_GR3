@@ -18,6 +18,7 @@ import com.iut.banque.modele.CompteAvecDecouvert;
 import com.iut.banque.modele.CompteSansDecouvert;
 import com.iut.banque.modele.Gestionnaire;
 import com.iut.banque.modele.Utilisateur;
+import java.security.*;
 
 /**
  * Implémentation de IDao utilisant Hibernate.
@@ -196,14 +197,15 @@ public class DaoHibernate implements IDao {
 			session = sessionFactory.openSession();
 			userId = userId.trim();
 			if ("".equals(userId) || "".equals(userPwd)) {
-				return false;
-			} else {
+				return false;} else {
 				session = sessionFactory.getCurrentSession();
 				Utilisateur user = session.get(Utilisateur.class, userId);
 				if (user == null) {
-					return false;
-				}
-				return (userPwd.equals(user.getUserPwd()));
+					return false;}
+				String encryptedPwd = crypterMD5(userPwd);
+				return encryptedPwd.equals(user.getUserPwd());
+
+
 			}
 		}
 	}
@@ -254,6 +256,26 @@ public class DaoHibernate implements IDao {
 	@Override
 	public void disconnect() {
 		System.out.println("Déconnexion de la DAO.");
+	}
+
+	public String crypterMD5(String motDePasse) {
+		try {
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			// Conversion du mot de passe en tableau de bytes et mise à jour du MessageDigest
+			md.update(motDePasse.getBytes());
+
+			// jsp ce que ça fait
+			byte[] digest = md.digest();
+			// Construction d'une chaîne hexadécimale à partir des bytes
+			StringBuilder sb = new StringBuilder();
+			for (byte b : digest) {
+				// Conversion de chaque byte en hexadécimal
+				sb.append(String.format("%02x", b));
+			}
+			return sb.toString();
+		} catch (NoSuchAlgorithmException e) {
+			throw new RuntimeException("Erreur : algorithme MD5 non trouvé.", e);
+		}
 	}
 
 }
