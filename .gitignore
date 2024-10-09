@@ -2,4 +2,5 @@
 /.idea
 /WebContent/WEB-INF/applicationContext.xml
 /WebContent/.DS_Store
-/WebContent/WEB-INF/applicationContext.xml
+/src/test/ressources
+/target
