@@ -8,6 +8,7 @@
 /dataSources.local.xml
 /.DS_Store
 /.idea
+target/
 /WebContent/WEB-INF/applicationContext.xml
 /WebContent/.DS_Store
-/target
+Documentation/.DS_Store
