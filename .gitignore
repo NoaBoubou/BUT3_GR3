@@ -12,5 +12,3 @@ target/
 /WebContent/WEB-INF/applicationContext.xml
 /WebContent/.DS_Store
 Documentation/.DS_Store
-/src/test/resources/TestsBanqueManager-context.xml
-/src/test/resources/TestsDaoHibernate-context.xml
