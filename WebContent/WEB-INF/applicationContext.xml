@@ -46,9 +46,9 @@
 		<property name="driverClassName"
 			value="com.mysql.jdbc.Driver" />
 
-		<property name="url" value="jdbc:mysql://localhost:3306/qualdev_bank?useSSL=false" />
-		<property name="username" value="root" />
-			<property name="password"  value="" />
+		<property name="url" value="jdbc:mysql://devbdd.iutmetz.univ-lorraine.fr:3306/ferchach4u_Qualdev?useSSL=false" />
+		<property name="username" value="ferchach4u_appli" />
+		<property name="password"  value="32208255" />
 	</bean>
 
 	<!-- ============= Gestion des Transactions ============= -->
