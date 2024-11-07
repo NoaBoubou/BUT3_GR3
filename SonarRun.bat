@@ -1,0 +1,1 @@
+mvn clean verify sonar:sonar -Dsonar.projectKey=AsBankMika -Dsonar.host.url=http://localhost:9000 -Dsonar.login=b97f66bc0b83a1e6f16f0e7035713e34f65692a8
