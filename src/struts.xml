@@ -12,6 +12,8 @@
 	<!-- Permet d'activer le mode de developpement. Celui-ci donne des informations 
 		supplémentaires. -->
 	<constant name="struts.devMode" value="true" />
+	<constant name="struts.mapper.action.prefix.enabled" value="true" />
+
 
 	<package name="com.iut.banque" namespace="/" extends="struts-default">
 
@@ -195,6 +197,8 @@
 		</action>
 
 		<!-- Opération sur les comptes -->
+
+
 
 		<action name="creditAction" class="com.iut.banque.controller.DetailCompte"
 			method="credit">

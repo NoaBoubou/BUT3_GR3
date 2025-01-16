@@ -29,12 +29,12 @@
 		</tr>
 		<s:iterator value="accounts">
 			<tr>
-				<td><s:url action="urlDetail" var="urlDetail">
-						<s:param name="compte"><s:property value="key" /></s:param> 
-						<%-- <s:param name="idCompte"><s:property value="key" /></s:param> --%>
-					</s:url> <s:a href="%{urlDetail}">
-						<s:property value="key" />
-					</s:a></td>
+				<td>
+					<s:form action="urlDetail" method="POST">
+						<s:hidden name="compte" value="%{key}" />
+						<s:submit value="%{key}" />
+					</s:form>
+				</td>
 				<s:if test="%{value.className == \"CompteAvecDecouvert\"}">
 					<td>Découvert possible</td>
 				</s:if>

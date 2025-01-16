@@ -10,6 +10,9 @@ import com.iut.banque.exceptions.TechnicalException;
 import com.iut.banque.facade.BanqueFacade;
 import com.opensymphony.xwork2.ActionSupport;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 public class CreerUtilisateur extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
@@ -24,6 +27,7 @@ public class CreerUtilisateur extends ActionSupport {
 	private String numClient;
 	private String message;
 	private String result;
+
 
 	/**
 	 * @return the userId
@@ -155,6 +159,27 @@ public class CreerUtilisateur extends ActionSupport {
 		this.banque = (BanqueFacade) context.getBean("banqueFacade");
 	}
 
+	public String crypterMD5(String motDePasse) {
+		try {
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			// Conversion du mot de passe en tableau de bytes et mise à jour du MessageDigest
+			md.update(motDePasse.getBytes());
+
+			// jsp ce que ça fait
+			byte[] digest = md.digest();
+			// Construction d'une chaîne hexadécimale à partir des bytes
+			StringBuilder sb = new StringBuilder();
+			for (byte b : digest) {
+				// Conversion de chaque byte en hexadécimal
+				sb.append(String.format("%02x", b));
+			}
+			return sb.toString();
+		} catch (NoSuchAlgorithmException e) {
+			throw new RuntimeException("Erreur : algorithme MD5 non trouvé.", e);
+		}
+	}
+
+
 	/**
 	 * Renvoie Le message à afficher si la création d'un utilisateur vient
 	 * d'être essayée.
@@ -200,10 +225,12 @@ public class CreerUtilisateur extends ActionSupport {
 	 */
 	public String creationUtilisateur() {
 		try {
+			String cryptPwd = crypterMD5(userPwd);
+
 			if (client) {
-				banque.createClient(userId, userPwd, nom, prenom, adresse, male, numClient);
+				banque.createClient(userId, cryptPwd, nom, prenom, adresse, male, numClient);
 			} else {
-				banque.createManager(userId, userPwd, nom, prenom, adresse, male);
+				banque.createManager(userId, cryptPwd, nom, prenom, adresse, male);
 			}
 			this.message = "Le nouvel utilisateur avec le user id '" + userId + "' a bien été crée.";
 			this.result = "SUCCESS";
