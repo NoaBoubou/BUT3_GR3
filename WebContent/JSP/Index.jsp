@@ -20,8 +20,10 @@
 	<h1>Bienvenue sur l'application IUT Bank 2023</h1>
 	<p>
 		<img
-			src="https://www.iut-metz.univ-lorraine.fr/images/AdminSite/Logos/Logo_IUT_Metz.UL.small.png"
-			alt="logo" />
+			src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Logo_Universit%C3%A9_de_Lorraine.svg/1200px-Logo_Universit%C3%A9_de_Lorraine.svg.png"
+			alt="logo"
+			style="width: 240px; height: 83px;"
+		/>
 	</p>
 	<input type="button" value="Information" name="info"
 		onClick="DisplayMessage()" />
