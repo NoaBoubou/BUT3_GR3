@@ -12,6 +12,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import com.iut.banque.dao.DaoHibernate;
 
 public class CreerUtilisateur extends ActionSupport {
 
@@ -27,6 +28,7 @@ public class CreerUtilisateur extends ActionSupport {
 	private String numClient;
 	private String message;
 	private String result;
+	private DaoHibernate daoHibernate;
 
 
 	/**
@@ -153,30 +155,11 @@ public class CreerUtilisateur extends ActionSupport {
 	 * Constructeur sans paramêtre de CreerUtilisateur
 	 */
 	public CreerUtilisateur() {
+		this.daoHibernate = new DaoHibernate();
 		System.out.println("In Constructor from CreerUtilisateur class ");
 		ApplicationContext context = WebApplicationContextUtils
 				.getRequiredWebApplicationContext(ServletActionContext.getServletContext());
 		this.banque = (BanqueFacade) context.getBean("banqueFacade");
-	}
-
-	public String crypterMD5(String motDePasse) {
-		try {
-			MessageDigest md = MessageDigest.getInstance("MD5");
-			// Conversion du mot de passe en tableau de bytes et mise à jour du MessageDigest
-			md.update(motDePasse.getBytes());
-
-			// jsp ce que ça fait
-			byte[] digest = md.digest();
-			// Construction d'une chaîne hexadécimale à partir des bytes
-			StringBuilder sb = new StringBuilder();
-			for (byte b : digest) {
-				// Conversion de chaque byte en hexadécimal
-				sb.append(String.format("%02x", b));
-			}
-			return sb.toString();
-		} catch (NoSuchAlgorithmException e) {
-			throw new RuntimeException("Erreur : algorithme MD5 non trouvé.", e);
-		}
 	}
 
 
@@ -225,7 +208,7 @@ public class CreerUtilisateur extends ActionSupport {
 	 */
 	public String creationUtilisateur() {
 		try {
-			String cryptPwd = crypterMD5(userPwd);
+			String cryptPwd = this.daoHibernate.crypterMD5(userPwd);
 
 			if (client) {
 				banque.createClient(userId, cryptPwd, nom, prenom, adresse, male, numClient);
