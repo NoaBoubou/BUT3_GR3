@@ -45,6 +45,22 @@ public class TestsDaoHibernate {
 	private DaoHibernate daoHibernate;
 
 	@Test
+	public void testCrypterMD5() {
+		DaoHibernate daoHibernate = new DaoHibernate();
+
+		try {
+			String motDePasse = "azerty123";
+			String mdpCrypte = daoHibernate.crypterMD5(motDePasse);
+
+			assertEquals("882baf28143fb700b388a87ef561a6e5", mdpCrypte);
+
+		} catch (IllegalArgumentException e) {
+			fail("Le mot de passe devrait être chiffré et rendre le bon résultat");
+			e.printStackTrace();
+		}
+	}
+
+	@Test
 	public void testGetAccountByIdExist() {
 		Compte account = daoHibernate.getAccountById("IO1010010001");
 		if (account == null) {
