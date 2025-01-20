@@ -44,6 +44,28 @@ public class TestsDaoHibernate {
 	@Autowired
 	private DaoHibernate daoHibernate;
 
+	public void testCreateUserCrypter() {
+		String cryptPwd = daoHibernate.crypterMD5("userPwd");
+		try {
+			try {
+				daoHibernate.createUser("NOM", "PRENOM", "ADRESSE", true, "c.new1", cryptPwd, false, "5544554455");
+			} catch (IllegalArgumentException e) {
+				fail("Il ne devrait pas y avoir d'exception ici");
+			} catch (IllegalFormatException e) {
+				fail("Il ne devrait pas y avoir d'exception ici");
+			}
+			Utilisateur user = daoHibernate.getUserById("c.new1");
+			assertEquals("NOM", user.getNom());
+			assertEquals("PRENOM", user.getPrenom());
+			assertEquals("ADRESSE", user.getAdresse());
+			assertEquals("c.new1", user.getUserId());
+			assertEquals(cryptPwd, user.getUserPwd());
+			assertTrue(user.isMale());
+		} catch (TechnicalException he) {
+			fail("L'utilisateur aurait du être créé.");
+		}
+	}
+
 	@Test
 	public void testCrypterMD5() {
 		DaoHibernate daoHibernate = new DaoHibernate();
