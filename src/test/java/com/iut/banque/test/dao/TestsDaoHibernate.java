@@ -44,6 +44,44 @@ public class TestsDaoHibernate {
 	@Autowired
 	private DaoHibernate daoHibernate;
 
+	public void testCreateUserCrypter() {
+		String cryptPwd = daoHibernate.crypterMD5("userPwd");
+		try {
+			try {
+				daoHibernate.createUser("NOM", "PRENOM", "ADRESSE", true, "c.new1", cryptPwd, false, "5544554455");
+			} catch (IllegalArgumentException e) {
+				fail("Il ne devrait pas y avoir d'exception ici");
+			} catch (IllegalFormatException e) {
+				fail("Il ne devrait pas y avoir d'exception ici");
+			}
+			Utilisateur user = daoHibernate.getUserById("c.new1");
+			assertEquals("NOM", user.getNom());
+			assertEquals("PRENOM", user.getPrenom());
+			assertEquals("ADRESSE", user.getAdresse());
+			assertEquals("c.new1", user.getUserId());
+			assertEquals(cryptPwd, user.getUserPwd());
+			assertTrue(user.isMale());
+		} catch (TechnicalException he) {
+			fail("L'utilisateur aurait du être créé.");
+		}
+	}
+
+	@Test
+	public void testCrypterMD5() {
+		DaoHibernate daoHibernate = new DaoHibernate();
+
+		try {
+			String motDePasse = "azerty123";
+			String mdpCrypte = daoHibernate.crypterMD5(motDePasse);
+
+			assertEquals("882baf28143fb700b388a87ef561a6e5", mdpCrypte);
+
+		} catch (IllegalArgumentException e) {
+			fail("Le mot de passe devrait être chiffré et rendre le bon résultat");
+			e.printStackTrace();
+		}
+	}
+
 	@Test
 	public void testGetAccountByIdExist() {
 		Compte account = daoHibernate.getAccountById("IO1010010001");
