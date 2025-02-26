@@ -17,15 +17,15 @@
 	</div>
 	<h1>Tableau de bord</h1>
 	<p>
-		Bienvenue <b><s:property value="connectedUser.prenom" /> <s:property
-				value="connectedUser.nom" /></b> !
+		Bienvenue <strong><s:property value="connectedUser.prenom" /> <s:property
+				value="connectedUser.nom" /></strong> !
 	</p>
 	<p>Voici l'état de vos comptes :</p>
 	<table>
 		<tr>
-			<td><b>Numéro de compte</b></td>
-			<td><b>Type de compte</b></td>
-			<td><b>Solde actuel</b></td>
+			<td><strong>Numéro de compte</strong></td>
+			<td><strong>Type de compte</strong></td>
+			<td><strong>Solde actuel</strong></td>
 		</tr>
 		<s:iterator value="accounts">
 			<tr>

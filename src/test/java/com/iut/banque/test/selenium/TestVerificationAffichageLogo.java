@@ -34,11 +34,11 @@ public class TestVerificationAffichageLogo {
         driver.get("http://localhost:8081/_00_ASBank2023_war/");
 
         WebElement logo = driver.findElement(By.xpath("//img[@alt='logo']"));
-        assertNotNull("❌ Le logo n'est pas trouvé dans le DOM !", logo);
-        System.out.println("✅ L'image du logo est bien trouvée dans le DOM.");
+        assertNotNull("Le logo n'est pas trouvé dans le DOM !", logo);
+        System.out.println("L'image du logo est bien trouvée dans le DOM.");
 
         Long naturalWidth = (Long) js.executeScript("return arguments[0].naturalWidth;", logo);
-        assertTrue("❌ L'image ne s'affiche pas !", naturalWidth > 0);
-        System.out.println("✅ L'image du logo est bien affichée !");
+        assertTrue("L'image ne s'affiche pas !", naturalWidth > 0);
+        System.out.println("L'image du logo est bien affichée !");
     }
 }
