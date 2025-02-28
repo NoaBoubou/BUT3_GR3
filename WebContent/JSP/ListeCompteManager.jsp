@@ -45,7 +45,7 @@
 		<s:iterator value="allClients">
 			<s:if test="(value.possedeComptesADecouvert() || !aDecouvert)">
 				<tr>
-					<td colspan="3"><b>Client :</b> <s:property
+					<td colspan="3"><strong>Client :</strong> <s:property
 							value="value.prenom" /> <s:property value="value.nom" /> (n°<s:property
 							value="value.numeroClient" />)</td>
 
