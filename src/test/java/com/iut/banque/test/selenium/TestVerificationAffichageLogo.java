@@ -31,7 +31,7 @@ public class TestVerificationAffichageLogo {
 
     @Test
     public void testLogoPresence() {
-        driver.get("http://localhost:8081/_00_ASBank2023_war/");
+        driver.get("http://localhost:8081/_00_ASBank2023/");
 
         WebElement logo = driver.findElement(By.xpath("//img[@alt='logo']"));
         assertNotNull("Le logo n'est pas trouvé dans le DOM !", logo);
